@@ -1,0 +1,15 @@
+.option {
+	font-size: 16px;
+	color: #6c63ff;
+	text-transform: capitalize;
+	border-radius: var(--border-radius);
+	background-color: var(--primary-bg-color);
+	font: var(--button-text-font);
+
+	&:hover {
+		background-color: var(--secondary-hover-bg-color);
+		transition-timing-function: var(--transition-timing);
+		transition-duration: var(--transition-duration);
+	}
+}
+

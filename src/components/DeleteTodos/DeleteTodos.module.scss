@@ -1,0 +1,128 @@
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .red {
+    background-color: rgb(195, 63, 63);
+  }
+  
+  .green {
+    background-color: green;
+  }
+}
+
+.sliderContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--secondary-bg-color);
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .sliderContainer .slider {
+  background-color: green;
+}
+
+.title {
+	text-align: center;
+	font-size: 26px;
+	font-weight: 700;
+	color: var(--text-color);
+}
+
+.bottom_buttons {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+
+	.add_btn,
+	.close_btn  {
+		margin-top: 120px;
+		justify-content: space-between;
+	}
+
+	.close_btn {
+		padding: 10px 22px;
+		font-size: 18px;
+		margin-right: 255px;
+		font: var(--button-text-font);
+		text-transform: uppercase;
+		border: 1px solid var(--secondary-bg-color);
+		color: var(--secondary-bg-color);
+		cursor: pointer;
+		border-radius: var(--border-radius);
+		background-color: var(--bg-color);
+		color: var(--secondary-hover-bg-color);
+
+		&:hover {
+			background-color: var(--secondary-hover-bg-color);
+			color: white;
+			box-shadow: 0px 0px 4px 0px var(--secondary-bg-color);
+			transition-timing-function: var(--transition-timing);
+			transition-duration: var(--transition-duration);
+		}
+
+		&:active {
+			background-color: #4d44f9;
+		}
+	}
+
+	.add_btn {
+		padding: 10px 22px;
+		font-size: 18px;
+		font: var(--button-text-font);
+		text-transform: uppercase;
+		border: 1px solid var(--secondary-bg-color);
+		background-color: var(--secondary-bg-color);
+		color: var(--primary-bg-color);
+		cursor: pointer;
+		border-radius: var(--border-radius);
+
+		&:hover {
+			background-color: transparent;
+			color: var(--secondary-bg-color);
+			box-shadow: 0px 0px 4px 0px var(--secondary-bg-color);
+			transition-timing-function: var(--transition-timing);
+			transition-duration: var(--transition-duration);
+		}
+
+		&:active {
+			background-color: transparent;
+		}
+	}
+}

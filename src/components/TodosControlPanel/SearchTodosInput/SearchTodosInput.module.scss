@@ -1,0 +1,16 @@
+.container {
+	position: relative;
+	align-items: center;
+}
+
+.icon {
+	position: absolute;
+	top: 50%;
+	right: 0.5rem;
+	transform: translateY(-50%);
+}
+
+.disabledIcon {
+	opacity: 0.5;
+	pointer-events: none;
+}

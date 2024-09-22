@@ -1,0 +1,45 @@
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.container {
+	position: relative;
+	display: flex;
+  flex-direction: column;
+	width: 350px;
+  border: 2px solid var(--secondary-bg-color);
+  padding: 10px;
+  border-radius: 10px;
+  background-color: var(--secondary-bg-color);
+  animation: slideIn 1s ease-out;
+  color: white;
+}
+
+.hidden {
+  animation: fadeOut 1s ease-out;
+  opacity: 0;
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+	font-weight: bold;
+  border-bottom: 1px dashed white;
+}
