@@ -78,6 +78,7 @@ input:checked + .sliderContainer .slider {
 
 	.close_btn {
 		padding: 10px 22px;
+		outline: none;
 		font-size: 18px;
 		margin-right: 255px;
 		font: var(--button-text-font);
@@ -103,8 +104,10 @@ input:checked + .sliderContainer .slider {
 	}
 
 	.add_btn {
+		margin-left: 20px;
 		padding: 10px 22px;
 		font-size: 18px;
+		outline: none;
 		font: var(--button-text-font);
 		text-transform: uppercase;
 		border: 1px solid var(--secondary-bg-color);

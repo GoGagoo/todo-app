@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { TODOS_LOCAL_STORAGE_TOTAL_TODOS } from '../../constants/todos'
 import { useEscape } from '../../hooks/useEscape'
@@ -7,6 +7,7 @@ import CrossIcon from '../../icons/cross.svg'
 import { addTodoItem } from '../../store/actions'
 import { Modal } from '../../uikit'
 import styles from './AddTaskBtn.module.scss'
+import useOutClick from '../../hooks/useOutClick'
 
 interface Props {
 	className?: string
@@ -54,6 +55,10 @@ export const AddTaskBtn: React.FC<Props> = ({ onTaskAdded }) => {
 
 	useEscape(handleCloseModal)
 
+	const modalRef = useRef<HTMLDivElement>(null)
+
+	useOutClick(modalRef, handleCloseModal)
+
 	const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTodoText(e.target.value)
 		setError(false)
@@ -75,7 +80,7 @@ export const AddTaskBtn: React.FC<Props> = ({ onTaskAdded }) => {
 			</button>
 			{isOpen && (
 				<Modal errorMsg={isTooShortTodoErrorMessage} hasError={error} isVisible={isOpen} onClose={handleCloseModal}>
-					<div onKeyDown={handleKeyEnter}>
+					<div ref={modalRef} onKeyDown={handleKeyEnter}>
 						<p className={styles.title}>NEW NOTE</p>
 						<input
 							type='text'

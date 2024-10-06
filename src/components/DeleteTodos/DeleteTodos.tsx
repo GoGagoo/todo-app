@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { deleteAllTodoItems } from '../../store/actions'
 import { Modal, Spinner, Switch } from '../../uikit'
 import styles from './DeleteTodos.module.scss'
+import useOutClick from '../../hooks/useOutClick'
 
 interface Props {
 	onClose?: () => void
@@ -40,10 +41,18 @@ export const DeleteTodos: React.FC<Props> = () => {
 		setIsModalOpen(false)
 	}
 
+	const handleKeyConfirmDelete = (e: React.KeyboardEvent) => {
+		if (e.key === 'Enter')  handleConfirmDelete()
+	}
+
 	const handleCloseModal = () => {
 		setIsModalOpen(false)
 		setIsCreatingTask(false)
 	}
+
+	const modalRef = useRef<HTMLDivElement>(null)
+
+	useOutClick(modalRef, handleCloseModal)
 
 	return (
 		<Spinner
@@ -58,7 +67,7 @@ export const DeleteTodos: React.FC<Props> = () => {
 			/>
 			{isModalOpen && (
 				<Modal isVisible={true} onClose={handleCloseModal}>
-					<>
+					<div onKeyDown={handleKeyConfirmDelete} ref={modalRef}>
 						<p className={styles.title}>
 							Do you really want to delete all your tasks?
 						</p>
@@ -70,7 +79,7 @@ export const DeleteTodos: React.FC<Props> = () => {
 								Delete
 							</button>
 						</div>
-					</>
+					</div>
 				</Modal>
 			)}
 		</Spinner>
