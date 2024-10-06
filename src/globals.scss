@@ -1,0 +1,38 @@
+@import './styles/var';
+
+body {
+	font-family: 'Katlin', sans-serif;
+	background-color: var(--bg-color);
+	color: var(--text-color);
+	transition:
+		background-color var(--transition-duration) var(--transition-timing),
+		color var(--transition-duration) var(--transition-timing);
+}
+
+body.light {
+	--bg-color: var(--primary-bg-color);
+	--text-color: var(--darken-bg-color);
+}
+
+body.dark {
+	--bg-color: var(--darken-bg-color);
+	--text-color: white;
+}
+
+@font-face {
+	font-family: 'Kanit';
+	src:
+		url('/public/fonts/Kanit-Regular.woff2') format('woff2'),
+		url('/public/fonts/Kanit-Regular.woff2') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Inter';
+	src:
+		url('/public/fonts/Inter-Regular.woff2') format('woff2'),
+		url('/public/fonts/Inter-Regular.woff2') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}

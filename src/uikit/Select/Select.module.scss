@@ -1,0 +1,25 @@
+.select {
+	background-color: var(--secondary-bg-color);
+	width: 85px;
+	color: var(--primary-bg-color);
+	padding: 6px 0;
+	font-size: 15px;
+	font-weight: 700;
+	text-align: left;
+	border-radius: var(--border-radius);
+	border: none;
+	outline: none;
+	font: var(--button-text-font);
+
+	&:hover {
+		background-color: var(--secondary-hover-bg-color);
+		box-shadow: 0px 0px 4px 0px #6c63ff;
+		transition-timing-function: var(--transition-timing);
+		transition-duration: var(--transition-duration);
+	}
+
+	&:disabled {
+		cursor: not-allowed;
+	}
+}
+

@@ -1,0 +1,21 @@
+.bottomContainer {
+	position: fixed;
+	display: flex;
+	justify-content: flex-end;
+	align-items: flex-end;
+	bottom: 0;
+	width: 100%;
+	margin-top: 350px;
+	padding-bottom: 15px;
+
+	& > *:first-child {
+		position: absolute;
+		left: 40px;
+		
+	}
+	
+	& > *:last-child {
+		position: absolute;
+		right: 40px;
+	}
+}
