@@ -48,16 +48,25 @@
 
 input:checked + .sliderContainer .slider {
   background-color: green;
+
+  &:hover {
+    background-color: rgb(11, 193, 11);
+  }
+
+  &:active {
+    background-color: rgb(7, 72, 7);
+  }
 }
 
 input:checked + .sliderContainer .slider:before {
   transform: translateX(26px);
 }
 
-.red {
+.deactivated {
   background-color: rgb(195, 63, 63);
+  cursor: not-allowed;
 }
 
-.green {
+.activated {
   background-color: green;
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { TODOS_LOCAL_STORAGE_TOTAL_TODOS } from '../../constants/todos'
 import styles from './StatList.module.scss'
 
 export const StatList = () => {
@@ -9,11 +10,14 @@ export const StatList = () => {
 	const [totalTodos, setTotalTodos] = useState(0)
 
 	useEffect(() => {
-		const storedTotalTodos = Number(localStorage.getItem('totalTodos')) || 0
+		const storedTotalTodos =
+			Number(localStorage.getItem(TODOS_LOCAL_STORAGE_TOTAL_TODOS)) || 0
 		setTotalTodos(storedTotalTodos)
 	}, [])
 
-	const activeTodosCount = todoItems.filter((item: any) => !item.isCompleted).length
+	const activeTodosCount = todoItems.filter(
+		(item: any) => !item.isCompleted
+	).length
 	const completedTodosCount = todoItems.filter(
 		(item: any) => item.isCompleted
 	).length

@@ -1,3 +1,8 @@
+.container {
+	position: relative;
+	align-items: center;
+}
+
 .input {
 	width: 595px;
 	padding: 0.5rem;
@@ -17,19 +22,12 @@
 
 	&:disabled {
 		background-color: rgba(118, 118, 118, 0.3);
-		border: rgba(118, 118, 118, 0.3);
+		border: 1px solid rgba(118, 118, 118, 0.3);
 		cursor: not-allowed;
 	}
-}
 
-.icon {
-	position: absolute;
-	top: 50%;
-	right: 0.5rem;
-	transform: translateY(-50%);
-}
-
-.disabledIcon {
-	opacity: 0.5;
-	pointer-events: none;
+	&:hover:disabled {
+		border: 1px solid rgb(195, 63, 63);
+		transition: border 0.2s ease-in-out;
+	}
 }

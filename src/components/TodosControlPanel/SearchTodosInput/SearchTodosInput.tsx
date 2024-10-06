@@ -1,15 +1,17 @@
+import classNames from 'classnames'
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useTypedSelector } from '../../../hooks/useTypedSelector'
 import { SearchIcon } from '../../../icons'
 import { setSearchQuery } from '../../../store/actions'
 import { Input } from '../../../uikit'
 import styles from './SearchTodosInput.module.scss'
 
 export const SearchTodosInput = () => {
-	const todoItems = useSelector((state: any) => state.todos.todos)
+	const dispatch = useDispatch()
+	const todoItems = useTypedSelector((state) => state.todos.todos)
 
 	const [searchTodosInputValue, setSearchTodosInputValue] = useState('')
-	const dispatch = useDispatch()
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
@@ -27,7 +29,9 @@ export const SearchTodosInput = () => {
 				disabled={!todoItems.length}
 			/>
 			<SearchIcon
-				className={`${styles.icon} ${!todoItems.length ? styles.disabledIcon : ''}`}
+				className={classNames(styles.icon, {
+					[styles.disabledIcon]: !todoItems.length,
+				})}
 			/>
 		</div>
 	)

@@ -1,3 +1,4 @@
+import { TODOS_LOCAL_STORAGE_TOTAL_TODOS } from '../constants/todos'
 import {
 	ADD_TODO_ITEM,
 	DELETE_ALL_TODO_ITEMS,
@@ -71,7 +72,7 @@ type TodoAction =
 
 const initialState: TodoState = {
 	todos: [],
-	totalTodos: Number(localStorage.getItem('totalTodos')) || 0,
+	totalTodos: Number(localStorage.getItem(TODOS_LOCAL_STORAGE_TOTAL_TODOS)) || 0,
 	sortFilter: 'all',
 	searchQuery: ''
 }

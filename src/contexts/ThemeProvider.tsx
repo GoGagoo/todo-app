@@ -6,6 +6,7 @@ import React, {
 	useMemo,
 	useState,
 } from 'react'
+import { TODOS_LOCAL_STORAGE_CURRENT_THEME } from '../constants/todos'
 
 type ThemeContextProps = {
 	children: React.ReactNode
@@ -22,24 +23,28 @@ const defaultContext = {
 }
 
 const currentTheme =
-	localStorage.getItem('CURRENT_THEME') === ThemeEnum.DARK ? 'dark' : 'light'
+	localStorage.getItem(TODOS_LOCAL_STORAGE_CURRENT_THEME) === ThemeEnum.DARK
+		? 'dark'
+		: 'light'
 document.body.classList.add(currentTheme)
 
 export const ThemeContext = createContext(defaultContext)
 
 const ThemeProvider = ({ children }: ThemeContextProps) => {
 	const initialTheme = () =>
-		(localStorage.getItem('CURRENT_THEME') as unknown as ThemeEnum) || ThemeEnum.LIGHT
+		(localStorage.getItem(
+			TODOS_LOCAL_STORAGE_CURRENT_THEME
+		) as unknown as ThemeEnum) || ThemeEnum.LIGHT
 
 	const [theme, setTheme] = useState<ThemeEnum>(initialTheme)
-	
+
 	const toggleThemeMode = () =>
 		setTheme((prevTheme) =>
 			prevTheme === ThemeEnum.LIGHT ? ThemeEnum.DARK : ThemeEnum.LIGHT
 		)
 
 	useLayoutEffect(() => {
-		localStorage.setItem('CURRENT_THEME', theme)
+		localStorage.setItem(TODOS_LOCAL_STORAGE_CURRENT_THEME, theme)
 		document.body.classList.toggle('dark', theme === ThemeEnum.DARK)
 		document.body.classList.toggle('light', theme === ThemeEnum.LIGHT)
 	}, [theme])

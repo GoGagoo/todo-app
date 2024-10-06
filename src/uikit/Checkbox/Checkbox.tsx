@@ -3,7 +3,7 @@ import styles from './Checkbox.module.scss'
 
 interface CheckboxProps {
 	checked: boolean
-	label?: string;
+	label?: string
 	onChange: (checked: boolean) => void
 	disabled: boolean
 }

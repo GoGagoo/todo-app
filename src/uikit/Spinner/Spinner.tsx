@@ -28,9 +28,7 @@ export const Spinner: React.FC<Props> = ({
 		[styles.black]: color === 'black',
 		[styles.gradient]: color === 'gradient',
 	})
-
-	const spinnerWidth = width
-	const spinnerHeight = height
+	
 	const spinnerSpinning = classNames(
 		{[styles.hidden]: !spinning }
 	)
@@ -39,8 +37,8 @@ export const Spinner: React.FC<Props> = ({
 		styles.spinner,
 		spinnerSize,
 		spinnerColor,
-		spinnerWidth,
-		spinnerHeight,
+		width,
+		height,
 		spinnerSpinning
 )
 

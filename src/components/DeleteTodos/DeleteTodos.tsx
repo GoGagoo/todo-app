@@ -47,14 +47,12 @@ export const DeleteTodos: React.FC<Props> = () => {
 
 	return (
 		<Spinner
-			width='100%'
-			height='100%'
 			size='small'
 			color='black'
 			spinning={isSpinning}
 		>
 			<Switch
-				disabled={!isLoadedTodos}
+				disabled={!isLoadedTodos || !todoItems.length}
 				checked={!!todoItems.length}
 				onChange={handleDeleteAllTasks}
 			/>

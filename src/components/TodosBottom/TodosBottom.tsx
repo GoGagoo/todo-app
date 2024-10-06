@@ -6,7 +6,7 @@ import { AddTaskBtn } from '../AddTaskBtn/AddTaskBtn'
 import styles from './TodosBottom.module.scss'
 
 export const TodosBottom = () => (
-	<div className={styles.bottom_container}>
+	<div className={styles.bottomContainer}>
 		<StatList />
 		<AddTaskBtn />
 	</div>

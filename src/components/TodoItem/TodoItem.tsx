@@ -8,6 +8,7 @@ import {
 } from '../../store/actions'
 import { Checkbox } from '../../uikit'
 import styles from './TodoItem.module.scss'
+import { useEscape } from '../../hooks/useEscape'
 
 interface TodoItemProps {
 	id: number
@@ -32,13 +33,14 @@ export const TodoItem: React.FC<TodoItemProps> = ({
 	const [error, setError] = useState('')
 	const [isTextChanged, setIsTextChanged] = useState(false)
 
-	const handleEditClick = () => {
+	const handleEdit = () => {
 		setIsEditing(true)
 		setError('')
 	}
 
 	const handleSaveNewTodoText = () => {
-		if (newTodoText.length <= 2) {
+		const todoNewTextLessOrEqual = 2
+		if (newTodoText.length <= todoNewTextLessOrEqual) {
 			setError(TodoErrMsg.SHORT_TODO_ITEM_NAME)
 		} else {
 			dispatch(editTodoItem(id, newTodoText))
@@ -61,9 +63,17 @@ export const TodoItem: React.FC<TodoItemProps> = ({
 		setIsTextChanged(e.target.value !== text)
 	}
 
+	const handleCloseEdit = () => {
+		setIsEditing(false)
+	}
+
+	useEscape(() => {
+		setIsEditing(false)
+	})
+
 	const handleKeyboardChangeTodoItemName = (e: React.KeyboardEvent) => {
 		if (e.key === 'Escape') {
-			setIsEditing(false)
+			handleCloseEdit()
 		} else if (e.key === 'Enter') {
 			handleSaveNewTodoText()
 		}
@@ -71,7 +81,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
 
 	const handleKeyboardApplyChange = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter') {
-			handleEditClick()
+			handleEdit()
 		}
 	}
 
@@ -109,7 +119,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
 					{!isEditing && (
 						<div>
 							<button
-								onClick={handleEditClick}
+								onClick={handleEdit}
 								className={styles.btn}
 								onKeyDown={handleKeyboardApplyChange}
 							>
@@ -132,8 +142,8 @@ export const TodoItem: React.FC<TodoItemProps> = ({
 									className={`${styles.sve_icon} ${!isTextChanged ? styles.disabled : ''}`}
 								/>
 							</button>
-							<button onClick={handleEditClick} className={styles.btn}>
-								<CancelIcon className={styles.cnl_icon} />
+							<button onClick={handleCloseEdit} className={styles.btn}>
+								<CancelIcon className={styles.cancel_icon} />
 							</button>
 						</div>
 					)}

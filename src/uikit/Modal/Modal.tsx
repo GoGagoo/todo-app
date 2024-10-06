@@ -5,13 +5,15 @@ import styles from './Modal.module.scss'
 interface ModalProps {
 	children: React.ReactNode
 	isVisible?: boolean
+	hasError?: boolean
+	errorMsg?: string
 	onClose: () => void
 	onConfirm?: () => void
 }
 
 export const Modal: React.FC<ModalProps> = (
 	{ children }: { children: React.ReactNode },
-	{ onClose, onConfirm, isVisible }
+	{ onClose, onConfirm, isVisible, hasError, errorMsg }
 ) => {
 	const modalRef = useRef<HTMLDivElement>(null)
 
@@ -26,7 +28,15 @@ export const Modal: React.FC<ModalProps> = (
 			onClick={onClose}
 			ref={modalRef}
 		>
-			<div className={styles.modalContent}>{children}</div>
+			<div className={styles.modalContent}>
+				{children}
+				{hasError && (
+							<p className={styles.err_msg}>
+								{errorMsg}
+							</p>
+						)
+				}
+			</div>
 		</div>
 	)
 }

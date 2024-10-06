@@ -19,7 +19,7 @@ export const Switch: React.FC<Props> = ({ onChange, checked, disabled }) => {
 			/>
 			<span className={styles.sliderContainer}>
 				<span
-					className={`${styles.slider} ${checked ? styles.green : styles.red}`}
+					className={`${styles.slider} ${checked ? styles.activated : styles.deactivated}`}
 				>
 					{disabled}
 				</span>

@@ -1,0 +1,4 @@
+export const TODOS_LOCAL_STORAGE_KEY = 'todoItems'
+export const TODOS_LOCAL_STORAGE_SORTED_TODOS = 'sortFilter'
+export const TODOS_LOCAL_STORAGE_TOTAL_TODOS = 'totalTodos'
+export const TODOS_LOCAL_STORAGE_CURRENT_THEME = 'CURRENT_THEME'

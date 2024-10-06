@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
 import classNames from 'classnames'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { TODOS_LOCAL_STORAGE_TOTAL_TODOS } from '../../constants/todos'
 import { useEscape } from '../../hooks/useEscape'
 import CrossIcon from '../../icons/cross.svg'
 import { addTodoItem } from '../../store/actions'
@@ -21,17 +22,22 @@ export const AddTaskBtn: React.FC<Props> = ({ onTaskAdded }) => {
 	const dispatch = useDispatch()
 
 	const [isOpen, setIsOpen] = useState(false)
-	const [text, setText] = useState('')
+	const [todoText, setTodoText] = useState('')
 	const [error, setError] = useState(false)
 
-	const shortEditTodoItemName = text.length > 2
+	const isTooShortTodoText = todoText.length > 2
 
 	const handleSubmit = () => {
-		if (text.trim() && shortEditTodoItemName) {
-			dispatch(addTodoItem(text))
+		if (todoText.trim() && isTooShortTodoText) {
+			dispatch(addTodoItem(todoText))
 			onTaskAdded && onTaskAdded()
-			localStorage.setItem('totalTodos', (Number(localStorage.getItem('totalTodos')) + 1).toString())
-			setText('')
+			localStorage.setItem(
+				TODOS_LOCAL_STORAGE_TOTAL_TODOS,
+				(
+					Number(localStorage.getItem(TODOS_LOCAL_STORAGE_TOTAL_TODOS)) + 1
+				).toString()
+			)
+			setTodoText('')
 			setIsOpen(false)
 		} else {
 			setError(true)
@@ -49,13 +55,15 @@ export const AddTaskBtn: React.FC<Props> = ({ onTaskAdded }) => {
 	useEscape(handleCloseModal)
 
 	const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setText(e.target.value)
+		setTodoText(e.target.value)
 		setError(false)
 	}
 
 	const handleKeyEnter = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter') handleSubmit()
 	}
+
+	const isTooShortTodoErrorMessage = 'Длина названия задачи должна быть более 3 символов'
 
 	return (
 		<div className={styles.container}>
@@ -66,7 +74,7 @@ export const AddTaskBtn: React.FC<Props> = ({ onTaskAdded }) => {
 				<CrossIcon className={styles.icon} />
 			</button>
 			{isOpen && (
-				<Modal isVisible={isOpen} onClose={handleCloseModal}>
+				<Modal errorMsg={isTooShortTodoErrorMessage} hasError={error} isVisible={isOpen} onClose={handleCloseModal}>
 					<div onKeyDown={handleKeyEnter}>
 						<p className={styles.title}>NEW NOTE</p>
 						<input
@@ -74,7 +82,7 @@ export const AddTaskBtn: React.FC<Props> = ({ onTaskAdded }) => {
 							autoFocus
 							className={styles.input}
 							placeholder='Input your note...'
-							value={text}
+							value={todoText}
 							onChange={onInputChange}
 						/>
 						{error && (
