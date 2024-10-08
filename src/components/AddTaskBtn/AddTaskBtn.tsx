@@ -15,10 +15,6 @@ interface Props {
 	onTaskAdded?: () => void
 }
 
-interface Props {
-	onTaskAdded?: () => void
-}
-
 export const AddTaskBtn: React.FC<Props> = ({ onTaskAdded }) => {
 	const dispatch = useDispatch()
 
