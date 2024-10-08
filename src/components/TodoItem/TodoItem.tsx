@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { useKeyStroke } from '../../hooks/useKeyStroke'
 import { CancelIcon, CheckmarkIcon, PencilIcon, TrashIcon } from '../../icons'
 import {
 	completeTodoItem,
@@ -8,7 +9,6 @@ import {
 } from '../../store/actions'
 import { Checkbox } from '../../uikit'
 import styles from './TodoItem.module.scss'
-import { useEscape } from '../../hooks/useEscape'
 
 interface TodoItemProps {
 	id: number
@@ -67,21 +67,13 @@ export const TodoItem: React.FC<TodoItemProps> = ({
 		setIsEditing(false)
 	}
 
-	useEscape(() => {
+	useKeyStroke('Escape', (e: KeyboardEvent) => {
 		setIsEditing(false)
 	})
 
 	const handleKeyboardChangeTodoItemName = (e: React.KeyboardEvent) => {
-		if (e.key === 'Escape') {
-			handleCloseEdit()
-		} else if (e.key === 'Enter') {
-			handleSaveNewTodoText()
-		}
-	}
-
-	const handleKeyboardApplyChange = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter') {
-			handleEdit()
+			handleSaveNewTodoText()
 		}
 	}
 
@@ -121,7 +113,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
 							<button
 								onClick={handleEdit}
 								className={styles.btn}
-								onKeyDown={handleKeyboardApplyChange}
+								// onKeyDown={handleKeyboardApplyChange}
 							>
 								<PencilIcon className={styles.pencil_icon} />
 							</button>

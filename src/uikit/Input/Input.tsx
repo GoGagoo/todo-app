@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from './Input.module.scss'
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 	type: string
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 	disabled: boolean

@@ -2,12 +2,12 @@ import classNames from 'classnames'
 import React, { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { TODOS_LOCAL_STORAGE_TOTAL_TODOS } from '../../constants/todos'
-import { useEscape } from '../../hooks/useEscape'
+import useClickOutside from '../../hooks/useClickOutside'
+import { useKeyStroke } from '../../hooks/useKeyStroke'
 import CrossIcon from '../../icons/cross.svg'
 import { addTodoItem } from '../../store/actions'
 import { Modal } from '../../uikit'
 import styles from './AddTaskBtn.module.scss'
-import useOutClick from '../../hooks/useOutClick'
 
 interface Props {
 	className?: string
@@ -53,22 +53,25 @@ export const AddTaskBtn: React.FC<Props> = ({ onTaskAdded }) => {
 		setIsOpen(false)
 	}
 
-	useEscape(handleCloseModal)
+	useKeyStroke('Escape', (e: KeyboardEvent) => {
+		handleCloseModal()
+	})
+
+	useKeyStroke('Enter', (e: KeyboardEvent) => {
+		handleSubmit()
+	})
 
 	const modalRef = useRef<HTMLDivElement>(null)
 
-	useOutClick(modalRef, handleCloseModal)
+	useClickOutside(modalRef, handleCloseModal)
 
 	const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setTodoText(e.target.value)
 		setError(false)
 	}
 
-	const handleKeyEnter = (e: React.KeyboardEvent) => {
-		if (e.key === 'Enter') handleSubmit()
-	}
-
-	const isTooShortTodoErrorMessage = 'Длина названия задачи должна быть более 3 символов'
+	const isTooShortTodoErrorMessage =
+		'Длина названия задачи должна быть более 3 символов'
 
 	return (
 		<div className={styles.container}>
@@ -79,8 +82,13 @@ export const AddTaskBtn: React.FC<Props> = ({ onTaskAdded }) => {
 				<CrossIcon className={styles.icon} />
 			</button>
 			{isOpen && (
-				<Modal errorMsg={isTooShortTodoErrorMessage} hasError={error} isVisible={isOpen} onClose={handleCloseModal}>
-					<div ref={modalRef} onKeyDown={handleKeyEnter}>
+				<Modal
+					errorMsg={isTooShortTodoErrorMessage}
+					hasError={error}
+					isVisible={isOpen}
+					onClose={handleCloseModal}
+				>
+					<div ref={modalRef}>
 						<p className={styles.title}>NEW NOTE</p>
 						<input
 							type='text'

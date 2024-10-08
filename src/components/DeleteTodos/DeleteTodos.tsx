@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import useClickOutside from '../../hooks/useClickOutside'
 import { useTypedSelector } from '../../hooks/useTypedSelector'
 import { deleteAllTodoItems } from '../../store/actions'
 import { Modal, Spinner, Switch } from '../../uikit'
 import styles from './DeleteTodos.module.scss'
-import useOutClick from '../../hooks/useOutClick'
+import { useKeyStroke } from '../../hooks/useKeyStroke'
 
 interface Props {
 	onClose?: () => void
@@ -41,9 +42,13 @@ export const DeleteTodos: React.FC<Props> = () => {
 		setIsModalOpen(false)
 	}
 
-	const handleKeyConfirmDelete = (e: React.KeyboardEvent) => {
-		if (e.key === 'Enter')  handleConfirmDelete()
-	}
+	useKeyStroke('Enter', (e: KeyboardEvent) => {
+		handleConfirmDelete()
+	})
+
+	useKeyStroke('Escape', (e: KeyboardEvent) => {
+		handleCloseModal()
+	})
 
 	const handleCloseModal = () => {
 		setIsModalOpen(false)
@@ -52,14 +57,10 @@ export const DeleteTodos: React.FC<Props> = () => {
 
 	const modalRef = useRef<HTMLDivElement>(null)
 
-	useOutClick(modalRef, handleCloseModal)
+	useClickOutside(modalRef, handleCloseModal)
 
 	return (
-		<Spinner
-			size='small'
-			color='black'
-			spinning={isSpinning}
-		>
+		<Spinner size='small' color='black' spinning={isSpinning}>
 			<Switch
 				disabled={!isLoadedTodos || !todoItems.length}
 				checked={!!todoItems.length}
@@ -67,7 +68,7 @@ export const DeleteTodos: React.FC<Props> = () => {
 			/>
 			{isModalOpen && (
 				<Modal isVisible={true} onClose={handleCloseModal}>
-					<div onKeyDown={handleKeyConfirmDelete} ref={modalRef}>
+					<div ref={modalRef}>
 						<p className={styles.title}>
 							Do you really want to delete all your tasks?
 						</p>

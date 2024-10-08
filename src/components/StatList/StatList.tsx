@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
 import { TODOS_LOCAL_STORAGE_TOTAL_TODOS } from '../../constants/todos'
 import styles from './StatList.module.scss'
+import { useTypedSelector } from '../../hooks/useTypedSelector'
 
 export const StatList = () => {
-	const totalTodosCount = useSelector((state: any) => state.todos.totalTodos)
-	const todoItems = useSelector((state: any) => state.todos.todos)
+	const totalTodosCount = useTypedSelector((state) => state.todos.totalTodos)
+	const todoItems = useTypedSelector((state) => state.todos.todos)
 
 	const [totalTodos, setTotalTodos] = useState(0)
 
@@ -18,6 +18,7 @@ export const StatList = () => {
 	const activeTodosCount = todoItems.filter(
 		(item: any) => !item.isCompleted
 	).length
+	
 	const completedTodosCount = todoItems.filter(
 		(item: any) => item.isCompleted
 	).length

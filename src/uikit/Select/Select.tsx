@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './Select.module.scss'
 
-interface Props {
+interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
 	children: React.ReactNode
 	disabled: boolean
 	onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void

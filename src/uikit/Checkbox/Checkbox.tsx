@@ -14,21 +14,21 @@ export const Checkbox: React.FC<CheckboxProps> = ({
 	disabled,
 	checked
 }) => {
-	const [isCompletedTodo, setIsCompletedTodo] = useState(checked || false)
+	const [isChecked, setIsChecked] = useState(checked || false)
 
 	const handleChange = () => {
 		onChange(!checked)
 	}
 
 	useEffect(()=>{
-		setIsCompletedTodo(checked || false)
+		setIsChecked(checked || false)
 	}, [checked])
 
 	return (
 		<label className={styles.checkbox}>
 			<input
 				type='checkbox'
-				checked={isCompletedTodo}
+				checked={isChecked}
 				onChange={handleChange}
 				className={styles.checkbox__input}
 				disabled={disabled}

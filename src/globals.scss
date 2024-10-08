@@ -16,7 +16,7 @@ body.light {
 
 body.dark {
 	--bg-color: var(--darken-bg-color);
-	--text-color: white;
+	--text-color: var(--darken-color);
 }
 
 @font-face {
